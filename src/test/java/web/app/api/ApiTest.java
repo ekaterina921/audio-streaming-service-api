@@ -1,10 +1,10 @@
 package web.app.api;
 
 import io.restassured.response.Response;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import web.app.api.objects.Playlist;
 import web.app.api.services.PlaylistService;
+
 
 import static org.hamcrest.Matchers.*;
 
@@ -14,6 +14,12 @@ public class ApiTest {
     Response createdPlaylist;
     int playlistId;
 
+    @BeforeAll
+    public static void generalSetup() {
+        JarProgramStartStop.startExtJarProgram();
+    }
+
+
     @BeforeEach
     public void init() {
         playlistService = new PlaylistService();
@@ -22,7 +28,10 @@ public class ApiTest {
         playlist = createdPlaylist.as(Playlist.class);
         playlistId = playlist.getId();
     }
-
+    @AfterAll
+    public static void destroyExtProcess(){
+        JarProgramStartStop.stopExtJarProcess();
+    }
     @Test
     public void testCreatePlaylist() {
         createdPlaylist.
