@@ -11,6 +11,7 @@ public class JarProgramStartStop {
     public static void startExtJarProgram() {
         if (local.get() == null) {
             try {
+                //should be updated in case the path to the app changes
                 String path = "C:\\Users\\ma_ka\\IdeaProjects\\src\\audio-streaming-service-1.0.0.jar";
                 local.set(Runtime.getRuntime().exec("java -jar " + path));
             } catch (IOException e) {
